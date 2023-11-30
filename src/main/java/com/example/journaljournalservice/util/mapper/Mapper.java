@@ -1,16 +1,18 @@
-package kth.journalbackendv2.util.mapper;
+package com.example.journaljournalservice.util.mapper;
 
+import com.example.journaljournalservice.core.entity.*;
+import com.example.journaljournalservice.persistance.entity.*;
+import com.example.journaljournalservice.view.entity.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kth.journalbackendv2.core.entity.*;
-import kth.journalbackendv2.persistance.entity.*;
-import kth.journalbackendv2.view.entity.*;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @org.mapstruct.Mapper(componentModel = "spring")
 public abstract class Mapper {
 

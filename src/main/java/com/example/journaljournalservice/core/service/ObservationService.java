@@ -1,14 +1,15 @@
-package kth.journalbackendv2.core.service;
+package com.example.journaljournalservice.core.service;
 
-import kth.journalbackendv2.core.entity.Encounter;
-import kth.journalbackendv2.core.entity.Observation;
-import kth.journalbackendv2.core.service.interfaces.IObservationService;
-import kth.journalbackendv2.persistance.entity.EncounterDB;
-import kth.journalbackendv2.persistance.entity.ObservationDB;
-import kth.journalbackendv2.persistance.repository.EncounterRepository;
-import kth.journalbackendv2.persistance.repository.ObservationRepository;
-import kth.journalbackendv2.util.mapper.Mapper;
-import kth.journalbackendv2.view.dto.ObservationDTO;
+import com.example.journaljournalservice.*;
+
+import com.example.journaljournalservice.core.entity.Observation;
+import com.example.journaljournalservice.core.service.interfaces.IObservationService;
+import com.example.journaljournalservice.persistance.entity.EncounterDB;
+import com.example.journaljournalservice.persistance.entity.ObservationDB;
+import com.example.journaljournalservice.persistance.repository.EncounterRepository;
+import com.example.journaljournalservice.persistance.repository.ObservationRepository;
+import com.example.journaljournalservice.util.mapper.Mapper;
+import com.example.journaljournalservice.view.dto.ObservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

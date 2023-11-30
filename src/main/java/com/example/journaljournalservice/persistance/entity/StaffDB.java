@@ -1,7 +1,7 @@
-package kth.journalbackendv2.persistance.entity;
+package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
-import kth.journalbackendv2.util.enums.Role;
+import com.example.journaljournalservice.util.enums.Role;
 
 import java.util.List;
 

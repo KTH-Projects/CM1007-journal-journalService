@@ -1,14 +1,12 @@
-package kth.journalbackendv2.core.service;
+package com.example.journaljournalservice.core.service;
 
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Chat;
-import kth.journalbackendv2.core.service.interfaces.IChatService;
-import kth.journalbackendv2.persistance.entity.AccountDB;
-import kth.journalbackendv2.persistance.entity.ChatDB;
-import kth.journalbackendv2.persistance.repository.AccountRepository;
-import kth.journalbackendv2.persistance.repository.ChatRepository;
-import kth.journalbackendv2.persistance.repository.PatientRepository;
-import kth.journalbackendv2.view.entity.AccountView;
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Chat;
+import com.example.journaljournalservice.core.service.interfaces.IChatService;
+import com.example.journaljournalservice.persistance.entity.AccountDB;
+import com.example.journaljournalservice.persistance.entity.ChatDB;
+import com.example.journaljournalservice.persistance.repository.ChatRepository;
+import com.example.journaljournalservice.view.entity.AccountView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

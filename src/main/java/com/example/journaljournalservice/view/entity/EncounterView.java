@@ -1,7 +1,7 @@
-package kth.journalbackendv2.view.entity;
+package com.example.journaljournalservice.view.entity;
 
-import kth.journalbackendv2.core.entity.Diagnosis;
-import kth.journalbackendv2.core.entity.Encounter;
+import com.example.journaljournalservice.core.entity.Diagnosis;
+import com.example.journaljournalservice.core.entity.Encounter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

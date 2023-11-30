@@ -1,13 +1,12 @@
-package kth.journalbackendv2.view.controllers;
+package com.example.journaljournalservice.view.controllers;
 
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Staff;
+import com.example.journaljournalservice.core.service.interfaces.ISessionService;
+import com.example.journaljournalservice.core.service.interfaces.IStaffService;
+import com.example.journaljournalservice.util.mapper.Mapper;
 import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Staff;
-import kth.journalbackendv2.core.service.StaffService;
-import kth.journalbackendv2.core.service.interfaces.ISessionService;
-import kth.journalbackendv2.core.service.interfaces.IStaffService;
-import kth.journalbackendv2.util.mapper.Mapper;
-import kth.journalbackendv2.view.entity.StaffView;
+import com.example.journaljournalservice.view.entity.StaffView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

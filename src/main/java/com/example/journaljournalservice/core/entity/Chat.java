@@ -1,6 +1,6 @@
-package kth.journalbackendv2.core.entity;
+package com.example.journaljournalservice.core.entity;
 
-import kth.journalbackendv2.view.entity.AccountView;
+import com.example.journaljournalservice.view.entity.AccountView;
 
 import java.util.UUID;
 

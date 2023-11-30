@@ -1,4 +1,4 @@
-package kth.journalbackendv2.util.enums;
+package com.example.journaljournalservice.util.enums;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

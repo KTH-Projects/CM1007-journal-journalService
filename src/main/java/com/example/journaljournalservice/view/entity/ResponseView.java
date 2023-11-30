@@ -1,4 +1,4 @@
-package kth.journalbackendv2.view.entity;
+package com.example.journaljournalservice.view.entity;
 import jakarta.servlet.http.HttpSession;
 
 public class ResponseView<E,HttpSession> {

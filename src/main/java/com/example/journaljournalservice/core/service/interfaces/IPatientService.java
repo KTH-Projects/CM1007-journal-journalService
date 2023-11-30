@@ -1,6 +1,6 @@
-package kth.journalbackendv2.core.service.interfaces;
+package com.example.journaljournalservice.core.service.interfaces;
 
-import kth.journalbackendv2.core.entity.Patient;
+import com.example.journaljournalservice.core.entity.Patient;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package kth.journalbackendv2.util.enums;
+package com.example.journaljournalservice.util.enums;
 
 public enum Role {
     admin("admin"), doctor("doctor"), patient("patient"), other("other");

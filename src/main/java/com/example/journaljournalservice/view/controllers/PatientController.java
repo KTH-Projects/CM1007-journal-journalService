@@ -1,12 +1,16 @@
-package kth.journalbackendv2.view.controllers;
+package com.example.journaljournalservice.view.controllers;
 
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Patient;
+import com.example.journaljournalservice.core.service.interfaces.IAccountService;
+import com.example.journaljournalservice.core.service.interfaces.IDiagnosisService;
+import com.example.journaljournalservice.core.service.interfaces.IPatientService;
+import com.example.journaljournalservice.core.service.interfaces.ISessionService;
+import com.example.journaljournalservice.util.mapper.Mapper;
+import com.example.journaljournalservice.view.entity.PatientView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Patient;
-import kth.journalbackendv2.core.service.interfaces.*;
-import kth.journalbackendv2.util.mapper.Mapper;
-import kth.journalbackendv2.view.entity.PatientView;
+import com.example.journaljournalservice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +27,14 @@ public class PatientController {
     private final IAccountService accountService;
     private final ISessionService sessionService;
     private final IDiagnosisService diagnosisService;
-    private final IFhirService fhirService;
     private final Mapper mapper;
 
    @Autowired
-    public PatientController(IPatientService patientService, IAccountService accountService, ISessionService sessionService, IDiagnosisService diagnosisService, IFhirService fhirService, Mapper mapper) {
+    public PatientController(IPatientService patientService, IAccountService accountService, ISessionService sessionService, IDiagnosisService diagnosisService,  Mapper mapper) {
         this.patientService = patientService;
         this.accountService = accountService;
         this.sessionService = sessionService;
         this.diagnosisService = diagnosisService;
-        this.fhirService = fhirService;
         this.mapper = mapper;
     }
 
@@ -46,9 +48,7 @@ public class PatientController {
         for(Patient p : patientService.findAll()){
             patientViews.add(mapper.PatientViewFromPatient(p));
         }
-        for(Patient p : fhirService.findAll()){
-            patientViews.add(mapper.PatientViewFromPatient(p));
-        }
+
         return ResponseEntity.ok(patientViews);
     }
 
@@ -58,10 +58,7 @@ public class PatientController {
         if(!sessionService.isDoctor(userSessionID)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         Patient p = patientService.findAllByID(id);
-        Patient fhirP = fhirService.findAllById(id);
 
-        p.getEncounters().addAll(fhirP.getEncounters());
-        p.getDiagnoses().addAll(fhirP.getDiagnoses());
 
         if(p == null) return ResponseEntity.notFound().build();
 

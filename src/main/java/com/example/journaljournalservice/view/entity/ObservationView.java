@@ -1,7 +1,7 @@
-package kth.journalbackendv2.view.entity;
+package com.example.journaljournalservice.view.entity;
 
-import kth.journalbackendv2.core.entity.Encounter;
-import kth.journalbackendv2.core.entity.Observation;
+import com.example.journaljournalservice.core.entity.Encounter;
+import com.example.journaljournalservice.core.entity.Observation;
 
 import java.util.ArrayList;
 import java.util.List;

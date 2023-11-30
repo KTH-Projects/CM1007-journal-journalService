@@ -1,7 +1,7 @@
-package kth.journalbackendv2.core.service.interfaces;
+package com.example.journaljournalservice.core.service.interfaces;
 
-import kth.journalbackendv2.core.entity.Observation;
-import kth.journalbackendv2.view.dto.ObservationDTO;
+import com.example.journaljournalservice.core.entity.Observation;
+import com.example.journaljournalservice.view.dto.ObservationDTO;
 
 import java.util.List;
 import java.util.Optional;

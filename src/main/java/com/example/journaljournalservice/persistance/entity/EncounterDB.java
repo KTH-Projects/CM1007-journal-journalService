@@ -1,4 +1,4 @@
-package kth.journalbackendv2.persistance.entity;
+package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

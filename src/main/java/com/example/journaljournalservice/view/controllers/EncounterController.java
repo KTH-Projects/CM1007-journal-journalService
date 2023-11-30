@@ -1,20 +1,19 @@
-package kth.journalbackendv2.view.controllers;
+package com.example.journaljournalservice.view.controllers;
 
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Encounter;
+import com.example.journaljournalservice.core.entity.Staff;
+import com.example.journaljournalservice.core.service.AccountService;
+import com.example.journaljournalservice.core.service.EncounterService;
+import com.example.journaljournalservice.core.service.SessionService;
+import com.example.journaljournalservice.core.service.StaffService;
+import com.example.journaljournalservice.util.mapper.Mapper;
+import com.example.journaljournalservice.view.dto.EncounterDTO;
+import com.example.journaljournalservice.view.entity.EncounterView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Diagnosis;
-import kth.journalbackendv2.core.entity.Encounter;
-import kth.journalbackendv2.core.entity.Staff;
-import kth.journalbackendv2.core.service.AccountService;
-import kth.journalbackendv2.core.service.EncounterService;
-import kth.journalbackendv2.core.service.SessionService;
-import kth.journalbackendv2.core.service.StaffService;
-import kth.journalbackendv2.core.service.interfaces.IFhirService;
-import kth.journalbackendv2.util.mapper.Mapper;
-import kth.journalbackendv2.view.dto.EncounterDTO;
-import kth.journalbackendv2.view.entity.EncounterView;
+import com.example.journaljournalservice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +29,15 @@ public class EncounterController {
     private final AccountService accountService;
     private final SessionService sessionService;
     private final StaffService staffService;
-    private final IFhirService fhirService;
     private final Mapper mapper;
 
 
     @Autowired
-    public EncounterController(EncounterService encounterService, AccountService accountService, SessionService sessionService, StaffService staffService, IFhirService fhirService, Mapper mapper) {
+    public EncounterController(EncounterService encounterService, AccountService accountService, SessionService sessionService, StaffService staffService, Mapper mapper) {
         this.encounterService = encounterService;
         this.accountService = accountService;
         this.sessionService = sessionService;
         this.staffService = staffService;
-        this.fhirService = fhirService;
         this.mapper = mapper;
     }
 
@@ -65,7 +62,6 @@ public class EncounterController {
         encounter.setStaffID(staff.getId());
         Encounter createdEncounter = encounterService.create(encounter);
 
-        fhirService.createEncounter(createdEncounter);
 
         if(createdEncounter == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         return ResponseEntity.ok(mapper.EncounterViewFromEncounter(createdEncounter));

@@ -1,7 +1,7 @@
-package kth.journalbackendv2.persistance.repository;
+package com.example.journaljournalservice.persistance.repository;
 
 
-import kth.journalbackendv2.persistance.entity.DiagnosisDB;
+import com.example.journaljournalservice.persistance.entity.DiagnosisDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;

@@ -1,18 +1,18 @@
-package kth.journalbackendv2.view.controllers;
+package com.example.journaljournalservice.view.controllers;
 
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.service.interfaces.IAccountService;
+import com.example.journaljournalservice.core.service.interfaces.IChatService;
+import com.example.journaljournalservice.core.service.interfaces.ISessionService;
+import com.example.journaljournalservice.util.mapper.Mapper;
+import com.example.journaljournalservice.view.entity.AccountView;
 import jakarta.persistence.EntityExistsException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Chat;
-import kth.journalbackendv2.core.service.interfaces.IAccountService;
-import kth.journalbackendv2.core.service.interfaces.IChatService;
-import kth.journalbackendv2.core.service.interfaces.IFhirService;
-import kth.journalbackendv2.core.service.interfaces.ISessionService;
-import kth.journalbackendv2.util.mapper.Mapper;
-import kth.journalbackendv2.view.entity.AccountView;
+
+import com.example.journaljournalservice.core.entity.Chat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,21 +28,19 @@ public class AccountController {
 
     private final IAccountService accountService;
     private final ISessionService sessionService;
-    private final IFhirService fhirService;
     private final IChatService chatService;
     private final Mapper mapper;
 
     @Autowired
-    public AccountController(IAccountService accountService, ISessionService sessionService, IFhirService fhirService, IChatService chatService, Mapper mapper) {
+    public AccountController(IAccountService accountService, ISessionService sessionService, IChatService chatService, Mapper mapper) {
         this.accountService = accountService;
         this.sessionService = sessionService;
-        this.fhirService = fhirService;
         this.chatService = chatService;
         this.mapper = mapper;
     }
 
     @GetMapping("")
-    public ResponseEntity<List<AccountView>> getAll(HttpSession session,@CookieValue("userSessionID") String userSessionID)
+    public ResponseEntity<List<AccountView>> getAll(HttpSession session, @CookieValue("userSessionID") String userSessionID)
     {
         if(!sessionService.isValidSession(userSessionID)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
@@ -112,7 +110,7 @@ public class AccountController {
             String sessionToken = sessionService.createSession(acc);
             session.setAttribute("session", sessionToken); // login the user
 
-            fhirService.createAccount(account);
+
 
             return new ResponseEntity<>(AccountView.convert(acc), HttpStatus.CREATED);
         }

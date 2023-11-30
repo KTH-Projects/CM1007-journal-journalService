@@ -1,13 +1,13 @@
-package kth.journalbackendv2.core.service;
+package com.example.journaljournalservice.core.service;
 
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Staff;
-import kth.journalbackendv2.core.service.interfaces.IStaffService;
-import kth.journalbackendv2.persistance.entity.AccountDB;
-import kth.journalbackendv2.persistance.entity.StaffDB;
-import kth.journalbackendv2.persistance.repository.AccountRepository;
-import kth.journalbackendv2.persistance.repository.StaffRepository;
-import kth.journalbackendv2.util.mapper.Mapper;
+import com.example.journaljournalservice.persistance.entity.AccountDB;
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Staff;
+import com.example.journaljournalservice.core.service.interfaces.IStaffService;
+import com.example.journaljournalservice.persistance.entity.StaffDB;
+import com.example.journaljournalservice.persistance.repository.AccountRepository;
+import com.example.journaljournalservice.persistance.repository.StaffRepository;
+import com.example.journaljournalservice.util.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

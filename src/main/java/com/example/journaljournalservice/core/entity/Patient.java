@@ -1,10 +1,10 @@
-package kth.journalbackendv2.core.entity;
+package com.example.journaljournalservice.core.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import kth.journalbackendv2.persistance.entity.DiagnosisDB;
-import kth.journalbackendv2.persistance.entity.EncounterDB;
+import com.example.journaljournalservice.persistance.entity.DiagnosisDB;
+import com.example.journaljournalservice.persistance.entity.EncounterDB;
 
 import java.util.ArrayList;
 import java.util.List;

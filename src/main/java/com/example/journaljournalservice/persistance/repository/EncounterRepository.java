@@ -1,7 +1,7 @@
-package kth.journalbackendv2.persistance.repository;
+package com.example.journaljournalservice.persistance.repository;
 
-import kth.journalbackendv2.persistance.entity.EncounterDB;
-import kth.journalbackendv2.persistance.entity.ObservationDB;
+import com.example.journaljournalservice.*;
+import com.example.journaljournalservice.persistance.entity.EncounterDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

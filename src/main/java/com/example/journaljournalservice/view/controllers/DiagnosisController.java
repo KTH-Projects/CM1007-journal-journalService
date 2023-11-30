@@ -1,22 +1,18 @@
-package kth.journalbackendv2.view.controllers;
+package com.example.journaljournalservice.view.controllers;
 
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Diagnosis;
+import com.example.journaljournalservice.core.entity.Staff;
+import com.example.journaljournalservice.core.service.interfaces.IAccountService;
+import com.example.journaljournalservice.core.service.interfaces.IDiagnosisService;
+import com.example.journaljournalservice.core.service.interfaces.ISessionService;
+import com.example.journaljournalservice.core.service.interfaces.IStaffService;
+import com.example.journaljournalservice.util.mapper.Mapper;
+import com.example.journaljournalservice.view.entity.DiagnosisView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.entity.Diagnosis;
-import kth.journalbackendv2.core.entity.Staff;
-import kth.journalbackendv2.core.service.SessionService;
-import kth.journalbackendv2.core.service.StaffService;
-import kth.journalbackendv2.core.service.interfaces.IAccountService;
-import kth.journalbackendv2.core.service.interfaces.IDiagnosisService;
-import kth.journalbackendv2.core.service.interfaces.ISessionService;
-import kth.journalbackendv2.core.service.interfaces.IStaffService;
-import kth.journalbackendv2.util.mapper.Mapper;
-import kth.journalbackendv2.view.entity.AccountView;
-import kth.journalbackendv2.view.entity.DiagnosisView;
-import kth.journalbackendv2.view.entity.PatientView;
-import kth.journalbackendv2.view.entity.StaffView;
+import com.example.journaljournalservice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +32,7 @@ public class DiagnosisController {
     private final Mapper mapper;
 
     @Autowired
-    public DiagnosisController(IDiagnosisService diagnosisService, ISessionService sessionService,IAccountService accountService,IStaffService staffService ,Mapper mapper) {
+    public DiagnosisController(IDiagnosisService diagnosisService, ISessionService sessionService, IAccountService accountService, IStaffService staffService , Mapper mapper) {
         this.diagnosisService = diagnosisService;
         this.sessionService = sessionService;
         this.accountService = accountService;

@@ -1,4 +1,4 @@
-package kth.journalbackendv2.view.dto;
+package com.example.journaljournalservice.view.dto;
 
 public class ObservationDTO {
     private String id;

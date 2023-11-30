@@ -1,8 +1,6 @@
-package kth.journalbackendv2.core.service.interfaces;
+package com.example.journaljournalservice.core.service.interfaces;
 
-import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.persistance.entity.AccountDB;
+import com.example.journaljournalservice.core.entity.Account;
 
 public interface ISessionService {
     public String createSession(Account account);

@@ -1,16 +1,17 @@
-package kth.journalbackendv2.core.service;
+package com.example.journaljournalservice.core.service;
 
 
 
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.service.interfaces.ISessionService;
+import com.example.journaljournalservice.persistance.entity.AccountDB;
+import com.example.journaljournalservice.persistance.entity.SessionDB;
+import com.example.journaljournalservice.persistance.repository.AccountRepository;
+import com.example.journaljournalservice.persistance.repository.SessionRepository;
+import com.example.journaljournalservice.util.enums.Role;
+import com.example.journaljournalservice.util.mapper.Mapper;
 import jakarta.servlet.http.HttpSession;
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.service.interfaces.ISessionService;
-import kth.journalbackendv2.persistance.entity.AccountDB;
-import kth.journalbackendv2.persistance.entity.SessionDB;
-import kth.journalbackendv2.persistance.repository.AccountRepository;
-import kth.journalbackendv2.persistance.repository.SessionRepository;
-import kth.journalbackendv2.util.enums.Role;
-import kth.journalbackendv2.util.mapper.Mapper;
+import com.example.journaljournalservice.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

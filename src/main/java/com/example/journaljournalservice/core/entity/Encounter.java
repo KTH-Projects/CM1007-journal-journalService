@@ -1,8 +1,8 @@
-package kth.journalbackendv2.core.entity;
+package com.example.journaljournalservice.core.entity;
 
 
-import kth.journalbackendv2.persistance.entity.EncounterDB;
-import kth.journalbackendv2.persistance.entity.ObservationDB;
+import com.example.journaljournalservice.persistance.entity.EncounterDB;
+import com.example.journaljournalservice.persistance.entity.ObservationDB;
 
 
 import java.time.LocalDateTime;

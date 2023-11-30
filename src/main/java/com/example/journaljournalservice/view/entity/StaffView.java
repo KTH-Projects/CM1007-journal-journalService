@@ -1,9 +1,9 @@
-package kth.journalbackendv2.view.entity;
+package com.example.journaljournalservice.view.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kth.journalbackendv2.core.entity.Staff;
-import kth.journalbackendv2.util.enums.Role;
+import com.example.journaljournalservice.core.entity.Staff;
+import com.example.journaljournalservice.util.enums.Role;
 
 
 public class StaffView {

@@ -1,7 +1,7 @@
-package kth.journalbackendv2.persistance.entity;
+package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
-import kth.journalbackendv2.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Account;
 
 import java.util.ArrayList;
 import java.util.HashSet;

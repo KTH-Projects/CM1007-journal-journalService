@@ -1,18 +1,18 @@
-package kth.journalbackendv2.core.service;
+package com.example.journaljournalservice.core.service;
 
-import kth.journalbackendv2.core.entity.Diagnosis;
-import kth.journalbackendv2.core.entity.Patient;
-import kth.journalbackendv2.core.entity.Staff;
-import kth.journalbackendv2.core.service.interfaces.IDiagnosisService;
-import kth.journalbackendv2.persistance.entity.DiagnosisDB;
-import kth.journalbackendv2.persistance.entity.PatientDB;
-import kth.journalbackendv2.persistance.entity.StaffDB;
-import kth.journalbackendv2.persistance.repository.AccountRepository;
-import kth.journalbackendv2.persistance.repository.DiagnosisRepository;
-import kth.journalbackendv2.persistance.repository.PatientRepository;
-import kth.journalbackendv2.persistance.repository.StaffRepository;
-import kth.journalbackendv2.util.enums.Role;
-import kth.journalbackendv2.util.mapper.Mapper;
+import com.example.journaljournalservice.*;
+
+import com.example.journaljournalservice.core.entity.Diagnosis;
+import com.example.journaljournalservice.core.service.interfaces.IDiagnosisService;
+import com.example.journaljournalservice.persistance.entity.DiagnosisDB;
+import com.example.journaljournalservice.persistance.entity.PatientDB;
+import com.example.journaljournalservice.persistance.entity.StaffDB;
+import com.example.journaljournalservice.persistance.repository.AccountRepository;
+import com.example.journaljournalservice.persistance.repository.DiagnosisRepository;
+import com.example.journaljournalservice.persistance.repository.PatientRepository;
+import com.example.journaljournalservice.persistance.repository.StaffRepository;
+import com.example.journaljournalservice.util.enums.Role;
+import com.example.journaljournalservice.util.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

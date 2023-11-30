@@ -1,7 +1,7 @@
-package kth.journalbackendv2.core.service.interfaces;
+package com.example.journaljournalservice.core.service.interfaces;
 
-import kth.journalbackendv2.core.entity.Encounter;
-import kth.journalbackendv2.view.dto.EncounterDTO;
+import com.example.journaljournalservice.core.entity.Encounter;
+import com.example.journaljournalservice.view.dto.EncounterDTO;
 
 import java.util.List;
 

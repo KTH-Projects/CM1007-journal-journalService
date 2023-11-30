@@ -1,21 +1,22 @@
-package kth.journalbackendv2.core.service;
+package com.example.journaljournalservice.core.service;
 
-import kth.journalbackendv2.core.entity.Account;
-import kth.journalbackendv2.core.service.interfaces.IAccountService;
-import kth.journalbackendv2.persistance.entity.AccountDB;
-import kth.journalbackendv2.persistance.entity.PatientDB;
-import kth.journalbackendv2.persistance.entity.StaffDB;
-import kth.journalbackendv2.persistance.repository.AccountRepository;
-import kth.journalbackendv2.persistance.repository.PatientRepository;
-import kth.journalbackendv2.persistance.repository.StaffRepository;
-import kth.journalbackendv2.util.enums.Role;
-import kth.journalbackendv2.util.mapper.Mapper;
+import com.example.journaljournalservice.core.entity.Account;
+import com.example.journaljournalservice.core.service.interfaces.IAccountService;
+import com.example.journaljournalservice.persistance.entity.AccountDB;
+import com.example.journaljournalservice.persistance.entity.PatientDB;
+import com.example.journaljournalservice.persistance.entity.StaffDB;
+import com.example.journaljournalservice.persistance.repository.AccountRepository;
+import com.example.journaljournalservice.persistance.repository.PatientRepository;
+import com.example.journaljournalservice.persistance.repository.StaffRepository;
+import com.example.journaljournalservice.util.enums.Role;
+import com.example.journaljournalservice.util.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class AccountService implements IAccountService {
@@ -72,7 +73,7 @@ public class AccountService implements IAccountService {
         switch (role) {
             case "doctor" : {
 
-                StaffDB staffDB = new StaffDB(createdAccount,Role.doctor);
+                StaffDB staffDB = new StaffDB(createdAccount, Role.doctor);
                 staffDB = staffRepository.save(staffDB);
                 createdAccount.setStaff(staffDB);
                 break;

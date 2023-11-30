@@ -1,9 +1,10 @@
-package kth.journalbackendv2.view.controllers;
+package com.example.journaljournalservice.view.controllers;
 
-import kth.journalbackendv2.core.entity.*;
-import kth.journalbackendv2.core.service.interfaces.*;
-import kth.journalbackendv2.util.enums.Role;
-import kth.journalbackendv2.util.mapper.Mapper;
+import com.example.journaljournalservice.*;
+import com.example.journaljournalservice.core.entity.*;
+import com.example.journaljournalservice.core.service.interfaces.*;
+import com.example.journaljournalservice.util.enums.Role;
+import com.example.journaljournalservice.util.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

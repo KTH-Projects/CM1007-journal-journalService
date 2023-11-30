@@ -1,6 +1,6 @@
-package kth.journalbackendv2.core.entity;
+package com.example.journaljournalservice.core.entity;
 
-import kth.journalbackendv2.util.enums.Role;
+import com.example.journaljournalservice.util.enums.Role;
 
 public class Staff {
     private String id;

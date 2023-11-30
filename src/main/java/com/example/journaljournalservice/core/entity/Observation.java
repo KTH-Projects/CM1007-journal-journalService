@@ -1,4 +1,4 @@
-package kth.journalbackendv2.core.entity;
+package com.example.journaljournalservice.core.entity;
 
 public class Observation {
 

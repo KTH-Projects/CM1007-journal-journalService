@@ -1,4 +1,4 @@
-package kth.journalbackendv2.util.config;
+package com.example.journaljournalservice.util.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

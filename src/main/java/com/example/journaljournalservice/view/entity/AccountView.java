@@ -1,8 +1,8 @@
-package kth.journalbackendv2.view.entity;
+package com.example.journaljournalservice.view.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kth.journalbackendv2.core.entity.Account;
+import com.example.journaljournalservice.core.entity.Account;
 
 public class AccountView {
 
