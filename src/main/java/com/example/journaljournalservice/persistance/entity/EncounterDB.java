@@ -1,6 +1,9 @@
 package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -8,6 +11,9 @@ import org.hibernate.annotations.FetchMode;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "encounter")
 public class EncounterDB {
@@ -32,55 +38,5 @@ public class EncounterDB {
     private List<ObservationDB> observations;
 
 
-
-    public List<ObservationDB> getObservations() {
-        return observations;
-    }
-
-    public void setObservations(List<ObservationDB> observations) {
-        this.observations = observations;
-    }
-
-    public EncounterDB(PatientDB patient, StaffDB staff, LocalDateTime dateTime) {
-        this.patient = patient;
-        this.staff = staff;
-        this.dateTime = dateTime;
-    }
-
-    public EncounterDB() {
-    }
-
-
-    public PatientDB getPatient() {
-        return patient;
-    }
-
-    public void setPatient(PatientDB patient) {
-        this.patient = patient;
-    }
-
-    public StaffDB getStaff() {
-        return staff;
-    }
-
-    public void setStaff(StaffDB staff) {
-        this.staff = staff;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
 
 }

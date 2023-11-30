@@ -1,10 +1,16 @@
 package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity()
 @Table(name = "diagnosis")
 public class DiagnosisDB {
@@ -28,55 +34,4 @@ public class DiagnosisDB {
     @CreationTimestamp
     private LocalDateTime dateTime;
 
-    public DiagnosisDB(String id, PatientDB patient, StaffDB staff, String diagnosis, LocalDateTime dateTime) {
-        this.id = id;
-        this.patient = patient;
-        this.staff = staff;
-        this.diagnosis = diagnosis;
-        this.dateTime = dateTime;
-    }
-
-    public DiagnosisDB() {
-        this.dateTime = LocalDateTime.now();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public PatientDB getPatient() {
-        return patient;
-    }
-
-    public void setPatient(PatientDB patient) {
-        this.patient = patient;
-    }
-
-    public StaffDB getStaff() {
-        return staff;
-    }
-
-    public void setStaff(StaffDB staff) {
-        this.staff = staff;
-    }
-
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 }

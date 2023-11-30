@@ -1,7 +1,5 @@
 package com.example.journaljournalservice.core.service;
 
-import com.example.journaljournalservice.*;
-
 import com.example.journaljournalservice.core.entity.Observation;
 import com.example.journaljournalservice.core.service.interfaces.IObservationService;
 import com.example.journaljournalservice.persistance.entity.EncounterDB;
@@ -42,7 +40,7 @@ public class ObservationService implements IObservationService {
         Optional<EncounterDB> encounter = encounterRepository.findById(observation.getEncounterID());
         if(encounter.isEmpty())
             return null;
-        ObservationDB observationDB = new ObservationDB(observation.getObservation());
+        ObservationDB observationDB = new ObservationDB();
         observationDB.setEncounter(encounter.get());
         ObservationDB savedObservationDB = observationRepository.save(observationDB);
         return mapper.ObservationFromObservationDB(savedObservationDB);

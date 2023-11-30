@@ -2,9 +2,15 @@ package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
 import com.example.journaljournalservice.util.enums.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "staff")
 public class StaffDB {
@@ -12,42 +18,7 @@ public class StaffDB {
     @GeneratedValue(strategy= GenerationType.UUID)
     private String id;
 
-    @OneToOne(mappedBy = "staff")
-    private AccountDB account;
-
     @Column
     private Role role;
 
-    public StaffDB(AccountDB account, Role role) {
-        this.account = account;
-        this.role = role;
-    }
-
-
-    public StaffDB() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public AccountDB getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountDB account) {
-        this.account = account;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

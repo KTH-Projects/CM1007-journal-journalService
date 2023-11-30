@@ -1,42 +1,19 @@
 package com.example.journaljournalservice.view.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EncounterDTO {
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setStaffID(String staffID) {
-        this.staffID = staffID;
-    }
-
-    public void setPatientID(String patientID) {
-        this.patientID = patientID;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
 
     private String id;
     private String staffID;
     private String patientID;
     private LocalDateTime date;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getStaffID() {
-        return staffID;
-    }
-
-    public String getPatientID() {
-        return patientID;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
 }

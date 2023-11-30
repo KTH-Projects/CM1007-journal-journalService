@@ -1,19 +1,15 @@
 package com.example.journaljournalservice.view.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ObservationDTO {
     private String id;
     private String encounterID;
     private String observation;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getEncounterID() {
-        return encounterID;
-    }
-
-    public String getObservation() {
-        return observation;
-    }
 }

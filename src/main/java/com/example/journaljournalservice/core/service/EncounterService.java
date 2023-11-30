@@ -1,22 +1,16 @@
 package com.example.journaljournalservice.core.service;
 
-import com.example.journaljournalservice.*;
 
 import com.example.journaljournalservice.core.entity.Encounter;
-import com.example.journaljournalservice.core.entity.Observation;
 import com.example.journaljournalservice.core.service.interfaces.IEncounterService;
 import com.example.journaljournalservice.persistance.entity.EncounterDB;
-import com.example.journaljournalservice.persistance.entity.ObservationDB;
-import com.example.journaljournalservice.persistance.entity.PatientDB;
-import com.example.journaljournalservice.persistance.entity.StaffDB;
 import com.example.journaljournalservice.persistance.repository.*;
 import com.example.journaljournalservice.util.mapper.Mapper;
 import com.example.journaljournalservice.view.dto.EncounterDTO;
-import org.hibernate.Length;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +19,6 @@ import java.util.Optional;
 public class EncounterService implements IEncounterService {
 
     private final EncounterRepository encounterRepository;
-    private final AccountRepository accountRepository;
     private final ObservationRepository observationRepository;
     private final StaffRepository staffRepository;
     private final PatientRepository patientRepository;
@@ -33,9 +26,8 @@ public class EncounterService implements IEncounterService {
     private final Mapper mapper;
 
     @Autowired
-    public EncounterService(EncounterRepository encounterRepository, AccountRepository accountRepository, ObservationRepository observationRepository, StaffRepository staffRepository, PatientRepository patientRepository, Mapper mapper) {
+    public EncounterService(EncounterRepository encounterRepository, ObservationRepository observationRepository, StaffRepository staffRepository, PatientRepository patientRepository, Mapper mapper) {
         this.encounterRepository = encounterRepository;
-        this.accountRepository = accountRepository;
         this.observationRepository = observationRepository;
         this.staffRepository = staffRepository;
         this.patientRepository = patientRepository;
@@ -45,15 +37,8 @@ public class EncounterService implements IEncounterService {
 
     @Override
     public List<Encounter> findAllByPatientID(String id) {
-        List<Encounter> encounters = new ArrayList<>();
-        List<EncounterDB> encounterDBList = encounterRepository.findByPatient_Id(id);
-
-        for(EncounterDB encounterDB : encounterDBList){
-            List<ObservationDB> observationDBList =  observationRepository.findAllByEncounter_Id(encounterDB.getId());
-            encounterDB.setObservations(observationDBList);
-            encounters.add(Encounter.convertFromEncounterDB(encounterDB));
-        }
-        return encounters;
+        return new ArrayList<>();
+        //TODO Implement
     }
 
     @Override
@@ -66,53 +51,16 @@ public class EncounterService implements IEncounterService {
 
     @Override
     public List<Encounter> findAll() {
-        List<Encounter> encounters = new ArrayList<>();
-        List<EncounterDB> encounterDBList = encounterRepository.findAll();
-
-        for(EncounterDB encounterDB : encounterDBList){
-            List<ObservationDB> observationDBList =  observationRepository.findAllByEncounter_Id(encounterDB.getId());
-            encounterDB.setObservations(observationDBList);
-            encounters.add(Encounter.convertFromEncounterDB(encounterDB));
-
-        }
-        return encounters;
+        return null;
     }
 
     @Override
     public Encounter create(Encounter encounter) {
-
-        Optional<StaffDB> staffDB = staffRepository.findById(encounter.getStaff().getId());
-        if(staffDB.isEmpty()) return null;
-
-        Optional<PatientDB> patientDB = patientRepository.findById(encounter.getPatient().getId());
-        if(patientDB.isEmpty()) return null;
-
-        EncounterDB encounterDB = new EncounterDB(patientDB.get(), staffDB.get(), LocalDateTime.now());
-
-        ArrayList<ObservationDB> observationDBS = new ArrayList<>();
-        for(Observation ob : encounter.getObservations()){
-            ObservationDB observationDB = mapper.ObservationDBFromObservation(ob);
-            observationDBS.add(observationRepository.save(observationDB));
-        }
-        encounterDB.setObservations(observationDBS);
-
-        EncounterDB returnEncounter = encounterRepository.save(encounterDB);
-
-        return mapper.EncounterFromEncounterDB(returnEncounter);
+        return null;
     }
 
     @Override
     public Encounter create(EncounterDTO encounter) {
-        Optional<StaffDB> staffDB = staffRepository.findById(encounter.getStaffID());
-        if(staffDB.isEmpty()) return null;
-
-        Optional<PatientDB> patientDB = patientRepository.findById(encounter.getPatientID());
-        if(patientDB.isEmpty()) return null;
-
-        EncounterDB encounterDB = new EncounterDB(patientDB.get(), staffDB.get(), encounter.getDate());
-        encounterDB.setObservations(new ArrayList<>());
-        EncounterDB returnEncounter = encounterRepository.save(encounterDB);
-
-        return mapper.EncounterFromEncounterDB(returnEncounter);
+        return null;
     }
 }

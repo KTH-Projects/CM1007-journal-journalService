@@ -1,9 +1,13 @@
 package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity()
 @Table(name = "patient")
 public class PatientDB {
@@ -12,39 +16,5 @@ public class PatientDB {
     @GeneratedValue(strategy=GenerationType.UUID)
     private String id;
 
-    @OneToOne(mappedBy = "patient")
-    private AccountDB account;
-
-    public PatientDB(){
-        this(null);
-    }
-    public PatientDB(AccountDB account){
-        this.account = account;
-    }
-
-    public AccountDB getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountDB account) {
-        this.account = account;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
-    @Override
-    public String toString() {
-        return "PatientDB{" +
-                "id='" + id + '\'' +
-                ", account=" + account +
-                '}';
-    }
 }
 

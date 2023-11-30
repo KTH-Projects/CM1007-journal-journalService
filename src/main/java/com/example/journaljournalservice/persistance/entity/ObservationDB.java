@@ -1,7 +1,13 @@
 package com.example.journaljournalservice.persistance.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "observation")
 public class ObservationDB {
@@ -17,38 +23,5 @@ public class ObservationDB {
     @JoinColumn(name = "encounter_id")
     private EncounterDB encounter;
 
-
-    public ObservationDB() {
-    }
-
-    public ObservationDB(String observation) {
-        this.observation = observation;
-    }
-
-
-
-    public EncounterDB getEncounter() {
-        return encounter;
-    }
-
-    public void setEncounter(EncounterDB encounter) {
-        this.encounter = encounter;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getObservation() {
-        return observation;
-    }
-
-    public void setObservation(String observation) {
-        this.observation = observation;
-    }
 
 }

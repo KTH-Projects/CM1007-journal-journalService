@@ -1,5 +1,4 @@
 package com.example.journaljournalservice.core.service;
-import com.example.journaljournalservice.*;
 
 import com.example.journaljournalservice.core.entity.Diagnosis;
 import com.example.journaljournalservice.core.entity.Encounter;
@@ -60,25 +59,6 @@ public class PatientService implements IPatientService {
         patient.setDiagnoses(diagnoses);
         patient.setEncounters(encounters);
         return patient;
-    }
-
-    @Override
-    public Patient findAllByAccount_ID(String id) {
-        Patient p = findByAccount_ID(id);
-        if(p == null)
-            return null;
-        List<Encounter> encounters = encounterService.findAllByPatientID(p.getId());
-        List<Diagnosis> diagnoses = diagnosisService.findByPatientID(p.getId());
-        p.setDiagnoses(diagnoses);
-        p.setEncounters(encounters);
-        return p;
-    }
-
-    @Override
-    public Patient findByAccount_ID(String id) {
-        PatientDB patientDB = repository.findByAccount_Id(id);
-        if(patientDB == null) return null;
-        return mapper.PatientFromPatientDB(patientDB);
     }
 
 }

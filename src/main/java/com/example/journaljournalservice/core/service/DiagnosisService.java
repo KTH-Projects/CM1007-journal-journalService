@@ -1,13 +1,10 @@
 package com.example.journaljournalservice.core.service;
 
-import com.example.journaljournalservice.*;
-
 import com.example.journaljournalservice.core.entity.Diagnosis;
 import com.example.journaljournalservice.core.service.interfaces.IDiagnosisService;
 import com.example.journaljournalservice.persistance.entity.DiagnosisDB;
 import com.example.journaljournalservice.persistance.entity.PatientDB;
 import com.example.journaljournalservice.persistance.entity.StaffDB;
-import com.example.journaljournalservice.persistance.repository.AccountRepository;
 import com.example.journaljournalservice.persistance.repository.DiagnosisRepository;
 import com.example.journaljournalservice.persistance.repository.PatientRepository;
 import com.example.journaljournalservice.persistance.repository.StaffRepository;
@@ -23,7 +20,6 @@ import java.util.Optional;
 @Service
 public class DiagnosisService implements IDiagnosisService {
 
-    private final AccountRepository accountRepository;
     private final PatientRepository patientRepository;
     private final StaffRepository staffRepository;
     private final DiagnosisRepository diagnosisRepository;
@@ -31,13 +27,11 @@ public class DiagnosisService implements IDiagnosisService {
 
     @Autowired
     public DiagnosisService(
-            AccountRepository accountRepository,
             PatientRepository patientRepository,
             DiagnosisRepository diagnosisRepository,
             StaffRepository staffRepository,
             Mapper mapper) {
 
-        this.accountRepository = accountRepository;
         this.patientRepository = patientRepository;
         this.diagnosisRepository = diagnosisRepository;
         this.staffRepository = staffRepository;
