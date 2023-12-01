@@ -36,8 +36,10 @@ public class PatientService implements IPatientService {
 
     public List<Patient> findAll() {
         List<Patient> patients = new ArrayList<>();
-        for(PatientDB p :  patientRepository.findAll()){
-            patients.add(mapper.PatientFromPatientDB(p));
+        List<PatientDB> patientDBS = patientRepository.findAll();
+        System.out.println(patientDBS);
+        for(PatientDB p :  patientDBS){
+            patients.add(Patient.convert(p));
         }
 
         return patients;
@@ -47,7 +49,10 @@ public class PatientService implements IPatientService {
     public Patient findByID(String id) {
         Optional<PatientDB> patientDB = patientRepository.findById(id);
         if(patientDB.isEmpty()) return null;
-        return mapper.PatientFromPatientDB(patientDB.get());
+
+        Patient p = Patient.convert(patientDB.get());
+        System.out.println(p);
+        return p;
     }
 
     @Override
@@ -71,6 +76,7 @@ public class PatientService implements IPatientService {
         p.setSex(info.getSex());
 
         PatientDB patientDB = patientRepository.save(p);
+        System.out.println(patientDB);
 
         return patientDB.getId();
     }

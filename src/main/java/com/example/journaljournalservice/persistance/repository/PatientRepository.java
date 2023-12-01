@@ -4,7 +4,6 @@ import com.example.journaljournalservice.persistance.entity.PatientDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public interface PatientRepository extends JpaRepository<PatientDB, String> {
 
