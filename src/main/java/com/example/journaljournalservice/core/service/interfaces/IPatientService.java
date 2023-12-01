@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IPatientService {
     public List<Patient> findAll();
-    public Patient findByID(String id);
-    public Patient findAllByID(String id);
+    public Patient findByIDLazy(String id);
+    public Patient findByIDEagle(String id);
 
     public String create(SignUpDTO info);
 }

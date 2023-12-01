@@ -10,10 +10,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EncounterDTO {
-
     private String id;
     private String staffID;
     private String patientID;
     private LocalDateTime date;
-
 }

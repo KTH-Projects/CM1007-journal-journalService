@@ -46,7 +46,7 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public Patient findByID(String id) {
+    public Patient findByIDLazy(String id) {
         Optional<PatientDB> patientDB = patientRepository.findById(id);
         if(patientDB.isEmpty()) return null;
 
@@ -56,8 +56,8 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public Patient findAllByID(String id) {
-        Patient patient = findByID(id);
+    public Patient findByIDEagle(String id) {
+        Patient patient = findByIDLazy(id);
         if(patient == null)
             return null;
         List<Encounter> encounters = encounterService.findAllByPatientID(patient.getId());
