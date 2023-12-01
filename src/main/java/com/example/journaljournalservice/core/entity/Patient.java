@@ -21,4 +21,8 @@ public class Patient {
     private List<Encounter> encounters;
     private List<Diagnosis> diagnoses;
 
+    private String name;
+    private int age;
+    private String sex;
+
 }

@@ -21,4 +21,13 @@ public class StaffDB {
     @Column
     private Role role;
 
+    @Column
+    private String name;
+
+    @Column
+    private int age;
+
+    @Column
+    private String sex;
+
 }

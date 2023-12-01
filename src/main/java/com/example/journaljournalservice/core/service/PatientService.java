@@ -9,6 +9,7 @@ import com.example.journaljournalservice.core.service.interfaces.IPatientService
 import com.example.journaljournalservice.persistance.entity.PatientDB;
 import com.example.journaljournalservice.persistance.repository.PatientRepository;
 import com.example.journaljournalservice.util.mapper.Mapper;
+import com.example.journaljournalservice.view.entity.SignUpDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ import java.util.Optional;
 public class PatientService implements IPatientService {
 
 
-    private final PatientRepository repository;
+    private final PatientRepository patientRepository;
     private final IDiagnosisService diagnosisService;
     private final IEncounterService encounterService;
     private final Mapper mapper;
 
     @Autowired
-    public PatientService(PatientRepository repository, IDiagnosisService diagnosisService, IEncounterService encounterService, Mapper mapper) {
-        this.repository = repository;
+    public PatientService(PatientRepository patientRepository, IDiagnosisService diagnosisService, IEncounterService encounterService, Mapper mapper) {
+        this.patientRepository = patientRepository;
         this.diagnosisService = diagnosisService;
         this.encounterService = encounterService;
         this.mapper = mapper;
@@ -35,7 +36,7 @@ public class PatientService implements IPatientService {
 
     public List<Patient> findAll() {
         List<Patient> patients = new ArrayList<>();
-        for(PatientDB p :  repository.findAll()){
+        for(PatientDB p :  patientRepository.findAll()){
             patients.add(mapper.PatientFromPatientDB(p));
         }
 
@@ -44,7 +45,7 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient findByID(String id) {
-        Optional<PatientDB> patientDB = repository.findById(id);
+        Optional<PatientDB> patientDB = patientRepository.findById(id);
         if(patientDB.isEmpty()) return null;
         return mapper.PatientFromPatientDB(patientDB.get());
     }
@@ -59,6 +60,19 @@ public class PatientService implements IPatientService {
         patient.setDiagnoses(diagnoses);
         patient.setEncounters(encounters);
         return patient;
+    }
+
+    @Override
+    public String create(SignUpDTO info) {
+        PatientDB p = new PatientDB();
+
+        p.setName(info.getName());
+        p.setAge(info.getAge());
+        p.setSex(info.getSex());
+
+        PatientDB patientDB = patientRepository.save(p);
+
+        return patientDB.getId();
     }
 
 }

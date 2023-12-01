@@ -16,5 +16,14 @@ public class PatientDB {
     @GeneratedValue(strategy=GenerationType.UUID)
     private String id;
 
+    @Column
+    private String name;
+
+    @Column
+    private int age;
+
+    @Column
+    private String sex;
+
 }
 
