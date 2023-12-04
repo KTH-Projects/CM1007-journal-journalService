@@ -1,10 +1,7 @@
 package com.example.journaljournalservice.view.controllers;
 
 
-import com.example.journaljournalservice.core.entity.Encounter;
-import com.example.journaljournalservice.core.entity.Observation;
-import com.example.journaljournalservice.core.entity.Patient;
-import com.example.journaljournalservice.core.entity.Staff;
+import com.example.journaljournalservice.core.entity.*;
 import com.example.journaljournalservice.core.service.AccountService;
 import com.example.journaljournalservice.core.service.EncounterService;
 import com.example.journaljournalservice.core.service.PatientService;
@@ -13,6 +10,7 @@ import com.example.journaljournalservice.core.service.interfaces.*;
 import com.example.journaljournalservice.view.dto.EncounterDTO;
 import com.example.journaljournalservice.view.dto.ObservationDTO;
 import com.example.journaljournalservice.view.entity.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,23 +29,17 @@ public class JournalController {
     private IEncounterService encounterService;
     private IAccountService accountService;
     private IObservationService observationService;
+    private IDiagnosisService diagnosisService;
 
     @Autowired
-    public JournalController(IPatientService patientService, IStaffService staffService, IEncounterService encounterService, IAccountService accountService, IObservationService observationService) {
+    public JournalController(IPatientService patientService, IStaffService staffService, IEncounterService encounterService, IAccountService accountService, IObservationService observationService, IDiagnosisService diagnosisService) {
         this.patientService = patientService;
         this.staffService = staffService;
         this.encounterService = encounterService;
         this.accountService = accountService;
         this.observationService = observationService;
+        this.diagnosisService = diagnosisService;
     }
-
-    /*TODO:
-    * 1. Check if patient
-    * 2. Check if staff
-    * 3. check if doctor
-    * 4. get patient ID
-    * 5. get staff ID
-    * */
 
     @PostMapping("/patient")
     public ResponseEntity<String> createPatient(@RequestBody SignUpDTO info){
@@ -121,6 +113,24 @@ public class JournalController {
         String id = observationService.create(observation);
 
         return new ResponseEntity<>(id, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/diagnosis")
+    public ResponseEntity<DiagnosisView> postDiagnosis(
+            @RequestParam String patientID,
+            @RequestParam String diagnosis ,
+            @CookieValue("userCookieID") String userSessionID){
+
+        if(diagnosis == null || diagnosis.isEmpty() || patientID.isEmpty())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        if(!accountService.isDoctor(userSessionID)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        String doctorId = accountService.getDoctorId(userSessionID);
+        Diagnosis returnDiagnosis = diagnosisService.create(doctorId,patientID,diagnosis);
+
+        if(returnDiagnosis == null) return ResponseEntity.badRequest().build();
+        return  ResponseEntity.ok(DiagnosisView.convert(returnDiagnosis));
     }
 
 

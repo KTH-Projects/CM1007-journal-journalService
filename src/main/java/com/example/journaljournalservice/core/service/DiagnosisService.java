@@ -65,7 +65,7 @@ public class DiagnosisService implements IDiagnosisService {
         diagnosisDB.setStaff(staffDB.get());
         DiagnosisDB returnDiagnosis = diagnosisRepository.save(diagnosisDB);
 
-        return mapper.DiagnosisFromDiagnosisDB(returnDiagnosis);
+        return Diagnosis.convert(returnDiagnosis);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class DiagnosisService implements IDiagnosisService {
 
         ArrayList<Diagnosis> diagnoses = new ArrayList<>();
         for(DiagnosisDB diagnosisDB : diagnosisRepository.findByPatient_Id(id)){
-            diagnoses.add(mapper.DiagnosisFromDiagnosisDB(diagnosisDB));
+            diagnoses.add(Diagnosis.convert(diagnosisDB));
         }
         return diagnoses;
     }

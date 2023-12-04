@@ -23,7 +23,7 @@ public class Staff {
         s.setRole(sDB.getRole());
         s.setSex(sDB.getSex());
         s.setId(sDB.getId());
-        s.setAge(s.getAge());
+        s.setAge(sDB.getAge());
         s.setName(sDB.getName());
 
         return s;

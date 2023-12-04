@@ -1,5 +1,6 @@
 package com.example.journaljournalservice.core.entity;
 
+import com.example.journaljournalservice.persistance.entity.DiagnosisDB;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,15 @@ public class Diagnosis {
     private String diagnosis;
 
     private LocalDateTime dateTime;
+
+    public static Diagnosis convert(DiagnosisDB diangosisDB){
+        Diagnosis diagnosis = new Diagnosis();
+        diagnosis.setId(diangosisDB.getId());
+        diagnosis.setDiagnosis(diangosisDB.getDiagnosis());
+        diagnosis.setPatient(Patient.convert(diangosisDB.getPatient()));
+        diagnosis.setStaff(Staff.convert(diangosisDB.getStaff()));
+        diagnosis.setDateTime(diangosisDB.getDateTime());
+        return diagnosis;
+    }
 
 }

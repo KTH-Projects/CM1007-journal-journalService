@@ -1,8 +1,5 @@
 package com.example.journaljournalservice.view.entity;
 
-import com.example.journaljournalservice.core.entity.Diagnosis;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.example.journaljournalservice.core.entity.Staff;
 import com.example.journaljournalservice.util.enums.Role;
 import lombok.AllArgsConstructor;

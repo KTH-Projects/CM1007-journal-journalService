@@ -70,6 +70,7 @@ public class PatientService implements IPatientService {
         }
 
         List<Diagnosis> diagnoses = diagnosisService.findByPatientID(patient.getId());
+
         patient.setDiagnoses(diagnoses);
         patient.setEncounters(encounters);
         return patient;

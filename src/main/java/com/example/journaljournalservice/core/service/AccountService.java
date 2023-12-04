@@ -49,6 +49,26 @@ public class AccountService implements IAccountService {
         }
     }
 
+    @Override
+    public String getDoctorId(String token) {
+        try {
+            String doctorId = this.webClient.get()
+                    .uri("/security/doctor")
+                    .cookie("userCookieID", token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            if(doctorId == null  || doctorId.isEmpty()) return null;
+
+            return doctorId;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     @Override
     public boolean isStaff(String token) {
