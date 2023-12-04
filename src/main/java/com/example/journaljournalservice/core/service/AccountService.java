@@ -17,7 +17,19 @@ public class AccountService implements IAccountService {
 
     @Override
     public boolean isPatient(String token) {
-        return false;
+        try {
+            String staffID = this.webClient.get()
+                    .uri("/security/patient")
+                    .cookie("userCookieID", token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            return staffID != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -40,7 +52,19 @@ public class AccountService implements IAccountService {
 
     @Override
     public boolean isStaff(String token) {
-        return false;
+        try {
+            String staffID = this.webClient.get()
+                    .uri("/security/staff")
+                    .cookie("userCookieID", token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            return staffID != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

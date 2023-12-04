@@ -11,5 +11,4 @@ public class ObservationDTO {
     private String id;
     private String encounterID;
     private String observation;
-
 }

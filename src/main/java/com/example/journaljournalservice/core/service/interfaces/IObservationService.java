@@ -9,9 +9,10 @@ import java.util.Optional;
 public interface IObservationService {
 
     Observation create(Observation observation);
-    Observation create(ObservationDTO observation);
+    String create(ObservationDTO observation);
 
     List<Observation> getAllObservations();
+    List<Observation> findAllByEncounter_Id(String id);
 
     Optional<Observation> getObservationById(String id);
 

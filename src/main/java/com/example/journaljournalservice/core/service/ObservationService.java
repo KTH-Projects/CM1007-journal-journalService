@@ -1,5 +1,6 @@
 package com.example.journaljournalservice.core.service;
 
+import com.example.journaljournalservice.core.entity.Encounter;
 import com.example.journaljournalservice.core.entity.Observation;
 import com.example.journaljournalservice.core.service.interfaces.IObservationService;
 import com.example.journaljournalservice.persistance.entity.EncounterDB;
@@ -11,6 +12,7 @@ import com.example.journaljournalservice.view.dto.ObservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,14 +38,16 @@ public class ObservationService implements IObservationService {
         return mapper.ObservationFromObservationDB(savedObservationDB);
     }
     @Override
-    public Observation create(ObservationDTO observation) {
+    public String create(ObservationDTO observation) {
         Optional<EncounterDB> encounter = encounterRepository.findById(observation.getEncounterID());
-        if(encounter.isEmpty())
-            return null;
+        if(encounter.isEmpty()) return null;
+
         ObservationDB observationDB = new ObservationDB();
         observationDB.setEncounter(encounter.get());
+        observationDB.setObservation(observation.getObservation());
         ObservationDB savedObservationDB = observationRepository.save(observationDB);
-        return mapper.ObservationFromObservationDB(savedObservationDB);
+
+        return savedObservationDB.getId();
     }
 
     @Override
@@ -52,6 +56,15 @@ public class ObservationService implements IObservationService {
         List<Observation> observations = new ArrayList<>();
         for (ObservationDB observationDB : observationDBs) {
             observations.add(mapper.ObservationFromObservationDB(observationDB));
+        }
+        return observations;
+    }
+
+    @Override
+    public List<Observation> findAllByEncounter_Id(String id) {
+        ArrayList<Observation> observations = new ArrayList<>();
+        for(ObservationDB oDB : observationRepository.findAllByEncounter_Id(id)){
+            observations.add(Observation.convert(oDB));
         }
         return observations;
     }

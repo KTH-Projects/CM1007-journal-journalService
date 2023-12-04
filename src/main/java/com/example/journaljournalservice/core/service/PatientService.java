@@ -5,6 +5,7 @@ import com.example.journaljournalservice.core.entity.Encounter;
 import com.example.journaljournalservice.core.entity.Patient;
 import com.example.journaljournalservice.core.service.interfaces.IDiagnosisService;
 import com.example.journaljournalservice.core.service.interfaces.IEncounterService;
+import com.example.journaljournalservice.core.service.interfaces.IObservationService;
 import com.example.journaljournalservice.core.service.interfaces.IPatientService;
 import com.example.journaljournalservice.persistance.entity.PatientDB;
 import com.example.journaljournalservice.persistance.repository.PatientRepository;
@@ -24,13 +25,15 @@ public class PatientService implements IPatientService {
     private final PatientRepository patientRepository;
     private final IDiagnosisService diagnosisService;
     private final IEncounterService encounterService;
+    private final IObservationService observationService;
     private final Mapper mapper;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, IDiagnosisService diagnosisService, IEncounterService encounterService, Mapper mapper) {
+    public PatientService(PatientRepository patientRepository, IDiagnosisService diagnosisService, IEncounterService encounterService, IObservationService observationService, Mapper mapper) {
         this.patientRepository = patientRepository;
         this.diagnosisService = diagnosisService;
         this.encounterService = encounterService;
+        this.observationService = observationService;
         this.mapper = mapper;
     }
 
@@ -61,6 +64,11 @@ public class PatientService implements IPatientService {
         if(patient == null)
             return null;
         List<Encounter> encounters = encounterService.findAllByPatientID(patient.getId());
+
+        for(Encounter e : encounters){
+            e.setObservations(observationService.findAllByEncounter_Id(e.getId()));
+        }
+
         List<Diagnosis> diagnoses = diagnosisService.findByPatientID(patient.getId());
         patient.setDiagnoses(diagnoses);
         patient.setEncounters(encounters);

@@ -2,22 +2,19 @@ package com.example.journaljournalservice.view.controllers;
 
 
 import com.example.journaljournalservice.core.entity.Encounter;
+import com.example.journaljournalservice.core.entity.Observation;
 import com.example.journaljournalservice.core.entity.Patient;
 import com.example.journaljournalservice.core.entity.Staff;
 import com.example.journaljournalservice.core.service.AccountService;
 import com.example.journaljournalservice.core.service.EncounterService;
 import com.example.journaljournalservice.core.service.PatientService;
 import com.example.journaljournalservice.core.service.StaffService;
-import com.example.journaljournalservice.core.service.interfaces.IAccountService;
-import com.example.journaljournalservice.core.service.interfaces.IEncounterService;
-import com.example.journaljournalservice.core.service.interfaces.IPatientService;
-import com.example.journaljournalservice.core.service.interfaces.IStaffService;
+import com.example.journaljournalservice.core.service.interfaces.*;
 import com.example.journaljournalservice.view.dto.EncounterDTO;
-import com.example.journaljournalservice.view.entity.EncounterView;
-import com.example.journaljournalservice.view.entity.PatientView;
-import com.example.journaljournalservice.view.entity.SignUpDTO;
-import com.example.journaljournalservice.view.entity.StaffView;
+import com.example.journaljournalservice.view.dto.ObservationDTO;
+import com.example.journaljournalservice.view.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,15 +30,16 @@ public class JournalController {
     private IStaffService staffService;
     private IEncounterService encounterService;
     private IAccountService accountService;
+    private IObservationService observationService;
 
     @Autowired
-    public JournalController(PatientService patientService, StaffService staffService, EncounterService encounterService, AccountService accountService) {
+    public JournalController(IPatientService patientService, IStaffService staffService, IEncounterService encounterService, IAccountService accountService, IObservationService observationService) {
         this.patientService = patientService;
         this.staffService = staffService;
         this.encounterService = encounterService;
         this.accountService = accountService;
+        this.observationService = observationService;
     }
-
 
     /*TODO:
     * 1. Check if patient
@@ -106,7 +104,7 @@ public class JournalController {
 
 
     @PostMapping("/encounter")
-    public ResponseEntity<EncounterView> create(@RequestBody EncounterDTO encounter, @CookieValue("userCookieID") String userSessionID) {
+    public ResponseEntity<EncounterView> createEncounter(@RequestBody EncounterDTO encounter, @CookieValue("userCookieID") String userSessionID) {
 
         if(!accountService.isDoctor(userSessionID)){
             return ResponseEntity.badRequest().build();
@@ -114,6 +112,15 @@ public class JournalController {
         Encounter e = encounterService.create(encounter);
 
         return ResponseEntity.ok(EncounterView.convert(e));
+    }
+
+    @PostMapping("/observation")
+    public ResponseEntity<String> createObservation(@RequestBody ObservationDTO observation, @CookieValue("userCookieID") String userSessionID) {
+        if(!(accountService.isDoctor(userSessionID) || accountService.isStaff(userSessionID))) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        String id = observationService.create(observation);
+
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
 
