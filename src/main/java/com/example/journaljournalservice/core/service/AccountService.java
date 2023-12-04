@@ -3,6 +3,8 @@ package com.example.journaljournalservice.core.service;
 import com.example.journaljournalservice.core.service.interfaces.IAccountService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.BodyInserters;
+
 
 @Service
 public class AccountService implements IAccountService {
@@ -21,19 +23,20 @@ public class AccountService implements IAccountService {
     @Override
     public boolean isDoctor(String token) {
         try {
-            String role = this.webClient.get()
-                    .uri("/api/") // Replace with actual endpoint
-                    .header("Authorization", "Bearer " + token) // Assuming token is sent as a Bearer token
+            String staffID = this.webClient.get()
+                    .uri("/security/doctor")
+                    .cookie("userCookieID", token)
                     .retrieve()
-                    .bodyToMono(String.class) // Assuming the response is the role as a String
-                    .block(); // Blocks to wait for the response (consider using async approach in real scenarios)
+                    .bodyToMono(String.class)
+                    .block();
 
-            return "doctor".equalsIgnoreCase(role); // Assuming the role returned is a string like "doctor"
+            return staffID != null;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     @Override
     public boolean isStaff(String token) {

@@ -2,8 +2,12 @@ package com.example.journaljournalservice.core.service;
 
 
 import com.example.journaljournalservice.core.entity.Encounter;
+import com.example.journaljournalservice.core.entity.Observation;
+import com.example.journaljournalservice.core.entity.Patient;
+import com.example.journaljournalservice.core.entity.Staff;
 import com.example.journaljournalservice.core.service.interfaces.IEncounterService;
 import com.example.journaljournalservice.persistance.entity.EncounterDB;
+import com.example.journaljournalservice.persistance.entity.ObservationDB;
 import com.example.journaljournalservice.persistance.entity.PatientDB;
 import com.example.journaljournalservice.persistance.entity.StaffDB;
 import com.example.journaljournalservice.persistance.repository.*;
@@ -39,7 +43,11 @@ public class EncounterService implements IEncounterService {
 
     @Override
     public List<Encounter> findAllByPatientID(String id) {
-        return new ArrayList<>();
+        ArrayList<Encounter> encounters = new ArrayList<>();
+        for(EncounterDB eDB : encounterRepository.findByPatient_Id(id)){
+            encounters.add(Encounter.convert(eDB));
+        }
+        return encounters;
     }
 
     @Override
@@ -70,6 +78,7 @@ public class EncounterService implements IEncounterService {
         if(patientDB.isEmpty()) return null;
 
         EncounterDB encounterDB = new EncounterDB();
+        encounterDB.setId(null);
         encounterDB.setPatient(patientDB.get());
         encounterDB.setStaff(staffDB.get());
         encounterDB.setDateTime(encounter.getDate());
@@ -77,7 +86,6 @@ public class EncounterService implements IEncounterService {
 
         EncounterDB returnEncounter = encounterRepository.save(encounterDB);
 
-        //Encounter.convert(returnEncounter);
-        return null;
+        return Encounter.convert(returnEncounter);
     }
 }

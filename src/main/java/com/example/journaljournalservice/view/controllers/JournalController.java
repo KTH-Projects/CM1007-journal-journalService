@@ -1,6 +1,7 @@
 package com.example.journaljournalservice.view.controllers;
 
 
+import com.example.journaljournalservice.core.entity.Encounter;
 import com.example.journaljournalservice.core.entity.Patient;
 import com.example.journaljournalservice.core.entity.Staff;
 import com.example.journaljournalservice.core.service.AccountService;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/journal")
 public class JournalController {
@@ -105,22 +106,14 @@ public class JournalController {
 
 
     @PostMapping("/encounter")
-    @ResponseBody
-    public ResponseEntity<EncounterView> create(@RequestBody EncounterDTO encounter, @CookieValue("userSessionID") String userSessionID) {
+    public ResponseEntity<EncounterView> create(@RequestBody EncounterDTO encounter, @CookieValue("userCookieID") String userSessionID) {
 
-/*
-        encounter.
+        if(!accountService.isDoctor(userSessionID)){
+            return ResponseEntity.badRequest().build();
+        }
+        Encounter e = encounterService.create(encounter);
 
-
-        Staff staff = staffService.findById(encounter.getStaffID());
-        encounter.setStaffID(staff.getId());
-        Encounter createdEncounter = encounterService.create(encounter);
-
-        if(createdEncounter == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-
- */
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(EncounterView.convert(e));
     }
 
 

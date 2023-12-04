@@ -3,6 +3,7 @@ package com.example.journaljournalservice.core.entity;
 
 import com.example.journaljournalservice.persistance.entity.EncounterDB;
 import com.example.journaljournalservice.persistance.entity.ObservationDB;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,29 @@ public class Encounter {
     private LocalDateTime dateTime;
 
     private List<Observation> observations;
+
+    public static Encounter convert(EncounterDB eDB){
+        Encounter e = new Encounter();
+
+        e.setId(eDB.getId());
+        e.setStaff(Staff.convert(eDB.getStaff()));
+        e.setPatient(Patient.convert(eDB.getPatient()));
+        e.setDateTime(eDB.getDateTime());
+        if(eDB.getObservations() != null){
+            ArrayList<Observation> observations = new ArrayList<>();
+            for(ObservationDB oDB : eDB.getObservations()){
+                Observation observation = new Observation();
+                observation.setObservation(oDB.getObservation());
+                observation.setId(oDB.getId());
+                observation.setEncounter(e);
+
+                observations.add(observation);
+            }
+            e.setObservations(observations);
+
+        }
+
+        return e;
+    }
 
 }

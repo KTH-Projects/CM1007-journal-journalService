@@ -13,4 +13,6 @@ public interface EncounterRepository extends JpaRepository<EncounterDB,String> {
     public List<EncounterDB> findByStaff_Id(String id);
 
 
+
+
 }
