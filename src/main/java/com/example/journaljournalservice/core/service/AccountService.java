@@ -12,7 +12,8 @@ public class AccountService implements IAccountService {
     private final WebClient webClient;
 
     public AccountService() {
-        this.webClient = WebClient.create("http://localhost:8081");;
+        this.webClient = WebClient.create(System.getenv("ACCOUNT_SERVICE_URL"));
+        System.out.println("Full URL="+System.getenv("ACCOUNT_SERVICE_URL"));
     }
 
     @Override
