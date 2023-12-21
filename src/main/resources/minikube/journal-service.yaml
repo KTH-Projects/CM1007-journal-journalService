@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journal-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journal-service
+  template:
+    metadata:
+      labels:
+        app: journal-service
+    spec:
+      containers:
+        - name: journal-service
+          image: tattack99/journal-service:journal-service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ACCOUNT_SERVICE_URL
+              value: "http://account-service-service:8081"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: journaldb-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: journaldb-secret
+                  key: MYSQL_USER
+            - name: MYSQL_URL
+              valueFrom:
+                secretKeyRef:
+                  name: journaldb-secret
+                  key: MYSQL_URL
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: journal-service-service
+spec:
+  type: NodePort
+  selector:
+    app: journal-service
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30000
