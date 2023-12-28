@@ -1,12 +1,4 @@
-FROM eclipse-temurin:17-jdk-jammy
-WORKDIR /app
-
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-#USER root
-RUN chmod +x ./mvnw
-RUN ./mvnw dependency:go-offline
-
-COPY src ./src
-
-CMD ["./mvnw", "spring-boot:run"]
+FROM eclipse-temurin:17-jdk-alpine
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
