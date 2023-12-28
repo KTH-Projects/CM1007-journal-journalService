@@ -2,18 +2,14 @@ package com.example.journaljournalservice.view.controllers;
 
 
 import com.example.journaljournalservice.core.entity.*;
-import com.example.journaljournalservice.core.service.AccountService;
-import com.example.journaljournalservice.core.service.EncounterService;
-import com.example.journaljournalservice.core.service.PatientService;
-import com.example.journaljournalservice.core.service.StaffService;
 import com.example.journaljournalservice.core.service.interfaces.*;
 import com.example.journaljournalservice.view.dto.EncounterDTO;
 import com.example.journaljournalservice.view.dto.ObservationDTO;
 import com.example.journaljournalservice.view.entity.*;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,6 +47,7 @@ public class JournalController {
         return ResponseEntity.ok(id);
     }
 
+    @PreAuthorize("hasRole('staff')")
     @GetMapping("/patient")
     public ResponseEntity<PatientView> findPatientById(@RequestParam String id){
         Patient p = patientService.findByIDEagle(id);
@@ -61,6 +58,7 @@ public class JournalController {
 
     }
 
+    @PreAuthorize("hasRole('staff')")
     @GetMapping("/patients")
     public ResponseEntity<List<PatientView>> findAllPatient(){
         List<PatientView> patientViews = new ArrayList<>();
@@ -68,7 +66,6 @@ public class JournalController {
         if(patients == null){
             return ResponseEntity.badRequest().build();
         }
-
         for(Patient p : patients){
             patientViews.add(PatientView.convert(p));
         }
@@ -85,6 +82,7 @@ public class JournalController {
         return ResponseEntity.ok(id);
     }
 
+    @PreAuthorize("hasRole('staff')")
     @GetMapping("/staff")
     public ResponseEntity<StaffView> findStaffById(@RequestParam String id){
         Staff s = staffService.findById(id);
@@ -94,48 +92,32 @@ public class JournalController {
         return ResponseEntity.ok(StaffView.convert(s));
     }
 
-
+    @PreAuthorize("hasRole('doctor')")
     @PostMapping("/encounter")
-    public ResponseEntity<EncounterView> createEncounter(@RequestBody EncounterDTO encounter, @CookieValue("userCookieID") String userSessionID) {
-
-        if(!accountService.isDoctor(userSessionID)){
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<EncounterView> createEncounter(@RequestBody EncounterDTO encounter) {
         Encounter e = encounterService.create(encounter);
-
         return ResponseEntity.ok(EncounterView.convert(e));
     }
 
+    @PreAuthorize("hasRole('staff')")
     @PostMapping("/observation")
-    public ResponseEntity<String> createObservation(@RequestBody ObservationDTO observation, @CookieValue("userCookieID") String userSessionID) {
-        if(!(accountService.isDoctor(userSessionID) || accountService.isStaff(userSessionID))) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
+    public ResponseEntity<String> createObservation(@RequestBody ObservationDTO observation) {
         String id = observationService.create(observation);
-
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    //TODO: Check if method works. Make sure header is ok.
+    @PreAuthorize("hasRole('doctor')")
     @PostMapping("/diagnosis")
-    public ResponseEntity<DiagnosisView> postDiagnosis(
-            @RequestParam String patientID,
-            @RequestParam String diagnosis ,
-            @CookieValue("userCookieID") String userSessionID){
-
+    public ResponseEntity<DiagnosisView> postDiagnosis(@RequestParam String patientID, @RequestParam String diagnosis, @RequestHeader("Authorization") String token){
         if(diagnosis == null || diagnosis.isEmpty() || patientID.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        if(!accountService.isDoctor(userSessionID)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
-        String doctorId = accountService.getDoctorId(userSessionID);
+        String doctorId = accountService.getDoctorIdByToken(token);
         Diagnosis returnDiagnosis = diagnosisService.create(doctorId,patientID,diagnosis);
 
         if(returnDiagnosis == null) return ResponseEntity.badRequest().build();
         return  ResponseEntity.ok(DiagnosisView.convert(returnDiagnosis));
     }
-
-
-
-
-
 
 }

@@ -1,10 +1,9 @@
 package com.example.journaljournalservice.core.service;
 
 import com.example.journaljournalservice.core.service.interfaces.IAccountService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.BodyInserters;
-
 
 @Service
 public class AccountService implements IAccountService {
@@ -14,7 +13,6 @@ public class AccountService implements IAccountService {
     public AccountService() {
         this.webClient = WebClient.create(System.getenv("ACCOUNT_SERVICE_URL"));
         System.out.println(System.getenv("ACCOUNT_SERVICE_URL"));
-
     }
 
     @Override
@@ -40,6 +38,7 @@ public class AccountService implements IAccountService {
             String staffID = this.webClient.get()
                     .uri("/security/doctor")
                     .cookie("userCookieID", token)
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + token) // Include the token in the Authorization header
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
@@ -57,6 +56,26 @@ public class AccountService implements IAccountService {
             String doctorId = this.webClient.get()
                     .uri("/security/doctor")
                     .cookie("userCookieID", token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            if(doctorId == null  || doctorId.isEmpty()) return null;
+
+            return doctorId;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String getDoctorIdByToken(String token) {
+        try {
+            String doctorId = this.webClient.get()
+                    .uri("/keycloak/doctorId")
+                    .header(HttpHeaders.AUTHORIZATION, token)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
