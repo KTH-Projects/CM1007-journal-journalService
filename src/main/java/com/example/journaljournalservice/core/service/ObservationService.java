@@ -1,6 +1,5 @@
 package com.example.journaljournalservice.core.service;
 
-import com.example.journaljournalservice.core.entity.Encounter;
 import com.example.journaljournalservice.core.entity.Observation;
 import com.example.journaljournalservice.core.service.interfaces.IObservationService;
 import com.example.journaljournalservice.persistance.entity.EncounterDB;
@@ -12,7 +11,6 @@ import com.example.journaljournalservice.view.dto.ObservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
