@@ -33,7 +33,12 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(authorize -> {
-            authorize.anyRequest().authenticated();
+
+            authorize
+                    .requestMatchers(HttpMethod.POST,"/journal/staff").permitAll()
+                    .requestMatchers(HttpMethod.POST,"/journal/patient").permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                    .anyRequest().authenticated();
         });
 
         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
