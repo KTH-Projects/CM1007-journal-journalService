@@ -109,12 +109,15 @@ public class JournalController {
     //TODO: Check if method works. Make sure header is ok.
     @PreAuthorize("hasRole('doctor')")
     @PostMapping("/diagnosis")
-    public ResponseEntity<DiagnosisView> postDiagnosis(@RequestParam String patientID, @RequestParam String diagnosis, @RequestHeader("Authorization") String token){
+    public ResponseEntity<DiagnosisView> postDiagnosis(@RequestParam(value = "patientID") String patientID, @RequestParam(value = "diagnosis") String diagnosis, @RequestHeader("Authorization") String token){
+        System.out.println("patientID: " + patientID + "\n" + " diagnosis: " + diagnosis);
         if(diagnosis == null || diagnosis.isEmpty() || patientID.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         String doctorId = accountService.getDoctorIdByToken(token);
+        System.out.println("doctorId: " + doctorId);
         Diagnosis returnDiagnosis = diagnosisService.create(doctorId,patientID,diagnosis);
+        System.out.println("diagnosis: " + returnDiagnosis);
 
         if(returnDiagnosis == null) return ResponseEntity.badRequest().build();
         return  ResponseEntity.ok(DiagnosisView.convert(returnDiagnosis));
